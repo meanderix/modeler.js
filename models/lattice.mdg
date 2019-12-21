@@ -1,28 +1,41 @@
-// Magic numbers
-// 2  = 1*2
-// 8  = 1*2 + 2*3
-// 20 = 1*2 + 2*3 + 3*4
-// 40 = 1*2 + 2*3 + 3*4 + 4*5
-// 70 = 1*2 + 2*3 + 3*4 + 4*5 + 5*6
+@preset helium_2 { protons: 2, neutrons: 2 }
+@preset oxygen_16 { protons: 8, neutrons: 8 }
+@preset calcium_40 { protons: 20, neutrons: 20 }
+@preset calcium_40 { protons: 20, neutrons: 20 }
+@preset nickel_56 { protons: 28, neutrons: 28 }
+@preset zirconium_80 { protons: 40, neutrons: 40 }
+@preset ytterbium_140 { protons: 70, neutrons: 70 }
+@preset copernicium_224 { protons: 140, neutrons: 140 }
 
-// 2, 8, 20, 28, 50, 82, 126
-// 2, 8, 20, 40, 70, 112, 186
+@param int protons 2 0 140
+@param int neutrons 2 0 140
+@param float particle_size 0.5 0 1
 
+@param enum colouring isospin spin total_spin principal magnetic_spin
+
+@param bool X_AXIS 1
+@param bool Y_AXIS 1
+@param bool Z_AXIS 1
+
+@param bool LATTICE_1 0
+@param bool LATTICE_2 0
+@param float lattice_size 0.12 0 0.25
+
+background 1 1 1
 startshape START
-// duration 60
+duration 60
 hashsize 2048
 cellsize 1
+minsize -1
 
 linerule LINERULE
 camerarule CAMERARULE
 linerule LINERULE
-// cameramode ortho
-// camerafov 3.5
-maxdepth 16
-// maxiter 2
 
-background 1 1 1
+evalmode bfs
+wrapmode none
 center
+
 
 isosurface SPHERE {
   xyz -1 1 6
@@ -31,79 +44,160 @@ isosurface SPHERE {
 
 rule CAMERARULE {
   FRAME{rx -90 z -3.5}
-  CAMERARULE {}
+  CAMERARULE {rx 1}
 }
 rule LINERULE {
-  6/6*[rz 360] VERTEX{x 0.1 G 0.3 R 0.3 B 0.3}
+  8/8*[rz 360] VERTEX{x $lattice_size G 0.3 R 0.3 B 0.3}
 }
 
-selector TETRAHEDRA hash
-selector PARTICLE hash
-//selector RECURSE function {sqrt(x*x+y*y+z*z)}
+selector PARTICLE_HASH autohash
+
+selector PROTON sequential
+selector NEUTRON sequential
+selector _PARTICLE weight u
+
 selector RECURSE depth
+selector RECURSE_XY depth
+selector RECURSE_Z hash
+selector TETRAHEDRA autohash
 
-
-rule PARTICLE 0 {
-  SPHERE{s 0.5}
-  HASH{}
-}
-rule PARTICLE 10000 {
-}
-
-rule RECURSE 6 {
-  TETRAHEDRA{fx x 2}
-  TETRAHEDRA{fx x -2}
-  TETRAHEDRA{fy y 2}
-  TETRAHEDRA{fy y -2}
-  TETRAHEDRA{fz z 2}
-  TETRAHEDRA{fz z -2}
-}
-rule RECURSE 100000 {}
-
-rule EDGE {
-  MOVETO{}
-  SLINETO{x 1 1 1}
+rule BALL {
+  SPHERE{R 1 s $particle_size}
 }
 
-rule PROTON {
-  EDGE{R 0.7 G 0.7 B 0.7}
-  PARTICLE{x 1 1 1 R 1}
+rule PROTON $protons {
+  BALL{}
+  EDGES{}
 }
 
-rule NEUTRON {
-  EDGE{R 0.7 G 0.7 B 0.7}
-  PARTICLE{x 1 1 1 B 1}
+rule NEUTRON $neutrons {
+  BALL{
+@IFDEF isospin
+    H 0.6
+@ENDIF
+  }
+  EDGES{}
+}
+
+rule _PARTICLE 0 {
+  PROTON{}
+}
+rule _PARTICLE 1 {
+  NEUTRON{}
+}
+
+rule PARTICLE_HASH 0 {
+  _PARTICLE{}
+}
+
+rule EDGES {
+  _EDGES{x -1 -1 -1 R 0.5 G 0.5 B 0.5}
+}
+
+rule _EDGES {
+@IFDEF LATTICE_1
+  MOVETO {x  1  1  1}
+  SLINETO{x -1 -1  1}
+  SLINETO{x  1 -1 -1}
+  SLINETO{x -1  1 -1}
+  SLINETO{x  1  1  1}  
+  SLINETO{x  1 -1 -1}  
+  MOVETO {x -1 -1  1}
+  SLINETO{x -1  1 -1}
+@ENDIF
+@IFDEF LATTICE_2
+  MOVETO{x  1  1  1} SLINETO{}
+  MOVETO{x  1 -1 -1} SLINETO{}
+  MOVETO{x -1  1 -1} SLINETO{}
+  MOVETO{x -1 -1  1} SLINETO{}  
+@ENDIF
+}
+
+rule PARTICLE {
+  PARTICLE_HASH{x 1 1 1}
+}
+
+rule RECURSE_Z 0 {
+  RECURSE{
+@IFDEF principal
+    H 0.2
+@ENDIF
+  }
+}
+
+rule RECURSE_XY 12 {
+  TETRAHEDRA{
+@IFDEF principal
+    H 0.2
+@ENDIF
+@IFDEF total_spin
+    H 0.2
+@ENDIF
+  }
+}
+
+rule RECURSE 11 {
+  RECURSE_XY{}
+  RECURSE_Z{z 2 fz}
+  RECURSE_Z{z -2 fz}
 }
 
 rule TETRAHEDRA 0 {
+  // u = 0 => proton
+  // u = 1 => neutron
+  // v = 0 => spin up
+  // v = 1 => spin down 
   // spin up proton
-  PROTON{}
+  PARTICLE{}
   // spin down proton
-  PROTON{fx fy}
+  PARTICLE{fx fy v 1
+@IFDEF spin
+    H 0.4
+@ENDIF
+  }
   // spin up neutron
-  NEUTRON{fx fz}
+  PARTICLE{fx fz u 1}
   // spin down neutron
-  NEUTRON{fy fz}
+  PARTICLE{fy fz u 1 v 1
+@IFDEF spin
+    H 0.4
+@ENDIF
+  }
 
-  // generate tetrahedras recursively
-  RECURSE{}
-}
-rule TETRAHEDRA 10000 {}
-
-rule START {
-  TETRAHEDRA{}
-  DRAWAXES{}
+  RECURSE_XY{x 2 fx
+@IFDEF magnetic_spin
+    H 0.2
+@ENDIF
+  }
+  RECURSE_XY{x -2 fx
+@IFDEF magnetic_spin
+    H 0.2
+@ENDIF
+  }
+  RECURSE_XY{y 2 fy}
+  RECURSE_XY{y -2 fy}
 }
 
 rule DRAWAXIS {
-  MOVETO{z -10 s 0.05}
-  LINETO{z -10}
-  LINETO{z 10}
-  LINETO{z 10 s 2.3}
-  LINETO{z 11.2 s 0.05}  
+  MOVETO{z -13 s 0}
+  LINETO{z -13}
+  LINETO{z 12}
+  LINETO{z 12 s 2.3}
+  LINETO{z 13.2 s 0}  
 }
 rule DRAWAXES {
+@IFDEF X_AXIS
   DRAWAXIS{ry 90 R 1}
+@ENDIF
+@IFDEF Y_AXIS
   DRAWAXIS{rz 90 ry 90 G 1}
+@ENDIF
+@IFDEF Z_AXIS
   DRAWAXIS{B 1}
+@ENDIF
+}
+
+rule START {
+  RECURSE{}
+  DRAWAXES{}
 }

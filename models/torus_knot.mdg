@@ -1,6 +1,14 @@
 // @presets A B C
-// @param int p 2 1 10
-// @param int q 7 1 10
+@preset A { p: 2, q: 5 }
+@preset B { p: 3, q: 7 }
+@preset C { p: 5, q: 5 }
+@preset D { p: 5, q: 7, inner: 4, outer: 7 }
+@preset E { p: 9, q: 8, inner: 8, outer: 10 }
+
+@param int p 2 1 10
+@param int q 7 1 10
+@param float inner 2 0 10
+@param float outer 4 0 10
 
 uniform lightPos 0 0 -400
 uniform specColor 1 1 1
@@ -18,6 +26,7 @@ background 0.2 0.2 0.2
 normal 0 1 0
 angle orbits
 
+center
 
 rule LINERULE {
   12/12*[rz -1] VERTEX{y 1.5}
@@ -29,7 +38,7 @@ rule START : transform {
 }
 
 rule CAMERARULE {
-  FRAME{z -20}
+  FRAME{z -4}
   CAMERARULE {}
 }
 
@@ -38,11 +47,11 @@ rule torusknot * axis : spiral {
 }
 
 rule axis {
-  1000/1000*[rz 2] FRAME{x 4 R 0.3 G 0.5 B 0.8}
+  1000/1000*[rz $p] FRAME{x $outer R 0.3 G 0.5 B 0.8}
 }
 
 rule spiral {
-  1000/1000*[ry 5] FRAME{x 2}
+  1000/1000*[ry $q] FRAME{x $inner}
 }
 
 // animation frames
