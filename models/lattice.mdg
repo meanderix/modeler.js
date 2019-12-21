@@ -28,9 +28,8 @@ hashsize 2048
 cellsize 1
 minsize -1
 
-linerule LINERULE
-camerarule CAMERARULE
-linerule LINERULE
+linerule LINE
+camerarule CAMERA
 
 evalmode bfs
 wrapmode none
@@ -42,11 +41,11 @@ isosurface SPHERE {
   function {1.0 - (x*x+y*y+z*z)}
 }
 
-rule CAMERARULE {
+rule CAMERA {
   FRAME{rx -90 z -3.5}
-  CAMERARULE {rx 1}
+  CAMERARULE {}
 }
-rule LINERULE {
+rule LINE {
   8/8*[rz 360] VERTEX{x $lattice_size G 0.3 R 0.3 B 0.3}
 }
 
@@ -197,7 +196,11 @@ rule DRAWAXES {
 @ENDIF
 }
 
-rule START {
+rule TRANSFORM {
+  FRAME{}
+  TRANSFORM{rz 1}
+}
+rule START : TRANSFORM {
   RECURSE{}
   DRAWAXES{}
 }
