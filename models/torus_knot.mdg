@@ -47,7 +47,7 @@ rule torusknot * axis : spiral {
 }
 
 rule axis {
-  1000/1000*[rz $p] FRAME{x $outer R 0.3 G 0.5 B 0.8}
+  1000/1000*[rz $p H 1] FRAME{x $outer R 0.3 G 0.5 B 0.8}
 }
 
 rule spiral {
