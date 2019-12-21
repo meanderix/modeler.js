@@ -25,6 +25,7 @@ rule LINERULE {
 rule BALL 0 {
   SPHERE{s 0.7 G 0.4 R 0.8 B 0.1}
 }
+rule BALL 1000 {}
 
 rule HLINE {
   SLINETO{G 0.8 R 0.6}
