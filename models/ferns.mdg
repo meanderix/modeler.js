@@ -6,8 +6,7 @@ startshape main
 minsize 0.05
 linerule LINERULE
 camerarule CAMERARULE
-duration 60
-
+	
 rule CAMERARULE {
   FRAME{rz -90 rx -35 z -10}
 }
@@ -21,7 +20,7 @@ rule main {
 }
 rule ferns{
   MOVETO{}
-  5*{rx 72}fern {}
+  5*{rx 72} fern {ry -44}
 }
 rule fern {
   LINETO {R 0.3 G 0.8 B 0.1}

@@ -69,7 +69,7 @@ selector RECURSE_Z hash
 selector TETRAHEDRA autohash
 
 rule BALL {
-  SPHERE{R 1 s $particle_size}
+  SPHERE{R 1.1 s $particle_size}
 }
 
 rule PROTON $protons {
@@ -127,7 +127,7 @@ rule PARTICLE {
 rule RECURSE_Z 0 {
   RECURSE{
 @IFDEF principal
-    H 0.2
+    H 0.15
 @ENDIF
   }
 }
@@ -135,10 +135,10 @@ rule RECURSE_Z 0 {
 rule RECURSE_XY 14 {
   TETRAHEDRA{
 @IFDEF principal
-    H 0.2
+    H 0.15
 @ENDIF
 @IFDEF total_spin
-    H 0.2
+    H 0.15
 @ENDIF
   }
 }
@@ -169,12 +169,12 @@ rule TETRAHEDRA 0 {
 
   RECURSE_XY{x 2 fx
 @IFDEF magnetic_spin
-    H 0.2
+    H 0.15
 @ENDIF
   }
   RECURSE_XY{x -2 fx
 @IFDEF magnetic_spin
-    H 0.2
+    H 0.15
 @ENDIF
   }
   RECURSE_XY{y 2 fy}

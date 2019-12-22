@@ -52,7 +52,12 @@ rule pentagon{
   FACENORMALS{}
 }
 
-rule START{
+rule TRANSFORM {
+  FRAME{}
+  TRANSFORM{ry 1d rx 0.7d rz 0.3d}
+}
+
+rule START : TRANSFORM {
   dodecahedron{s 2 B 0.4 R 0.6 G 0.8}
   symplanes{s 2 G 0.8 R 1}
 }
