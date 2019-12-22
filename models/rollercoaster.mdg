@@ -1,0 +1,105 @@
+@param bool FirstPerson 0
+@param int TieDistance 1 0 10
+@param float RailThickness 0.3 0 1
+
+startshape tracks
+linerule linerule
+duration 60
+
+@IFDEF FirstPerson
+camerarule carpath
+camerafov 60
+@ELSE
+camerarule observer
+@ENDIF
+
+background 0.2 0.3 0.4 1.0
+
+isosurface SPHERE {
+  xyz -1 1 4
+  function {1.0 - (x*x+y*y+z*z)}
+}
+rule square{
+  VERTEX{x -1 y -1}
+  VERTEX{x 1 y -1}
+  VERTEX{x -1 y 1}
+  FACENORMALS{}
+  VERTEX{x 1 y -1}
+  VERTEX{x 1 y 1}
+  VERTEX{x -1 y 1}
+  FACENORMALS{}
+}
+rule cube{
+  square{z 1}
+  square{z -1}
+  square{rx 90 z 1}
+  square{rx 90 z -1}
+  square{ry 90 z 1}
+  square{ry 90 z -1}
+}
+rule linerule {
+  6/6*[rz 360] VERTEX{x $RailThickness}
+}
+
+rule observer {
+  FRAME{x -10 -10 ry -12 rx -12 z -100}
+}
+
+rule car : carpath {
+  cube{s 2}
+  SPHERE{y 2 x -2 z 2}
+  SPHERE{y 2 x 2 z 2}
+  SPHERE{y 2 x -2 z -2}
+  SPHERE{y 2 x 2 z -2}
+}
+
+rule carpath {
+  tracks{}
+  carpath{}
+}
+
+rule tie 1 {
+  C.MOVETO{ry 90 z -2}
+  C.LINETO{ry 90 z 2}
+}
+
+rule tie $TieDistance {
+}
+
+selector tie sequential
+
+rule rails{
+  FRAME{y -2}
+  A.LINETO{x -2 R 0.6 G 0.3 B 0.9}
+  B.LINETO{x 2 R 0.6 G 0.3 B 0.9}
+  tie{R 0.6 G 0.3 B 0.9}
+  MOVETO{}
+}
+
+rule tracks {
+@IFNDEF FirstPerson
+  car{R 1 B 0.7 }
+@ENDIF
+	rails{} \
+  20 * {z 1} rails{} \
+  12 * {up 5 z 1 fps -1.5} rails{} \
+  34 * {z 1} rails{} \
+  12 * {down 5 z 1} rails{} \
+  32 * {left 5 z 1} rails{} \
+  12 * {down 6 z 1 fps 2} rails{} \
+  32* {z 1 fps 3} rails{} \
+  124 * {up 5 rz 0.5 z 1 B -0.003 G 0.003} rails{} \
+  30 * {rz -6 z 1} rails {} \
+  134 * {right 2 z 1} rails {} \
+  12 * {down 5 z 1} rails{} \
+  90 * {rx 3 ry -2 rz 5 z 1} rails{} \
+  90 * {rx 3 rz -2 z 1} rails{} \
+  40 * {down 3 z 1 fps -2} rails{} \
+  30 * {R 0.005 G -0.005 B -0.005 down 3 z 1 fps 2} rails{} \
+  35 * {R 0.005 G -0.005 B -0.005 z 1} rails{} \
+  12 * {up 4 z 1 } rails{} \
+  24 * {z 1} rails{} \
+  32 * {right 3.01 z 1} rails{} \
+  68 * {rz 0.7 left 3.6  z 1 fps -1 R -0.004 B 0.008} rails{} \
+  5 * {rz 2 y -0.2 z 1} rails{}
+}
