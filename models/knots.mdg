@@ -3,8 +3,8 @@
 @param int X  5 1 100
 @param int Y 16 1 100
 @param int Z 18 1 100
-@radius float 0.7 0 2
-@color float 0 0 1
+@param float radius 0.7 0 2
+@param float color 0 0 1
 
 minsize 0.0015
 duration 60
