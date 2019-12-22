@@ -4,6 +4,8 @@
 @param int Y 16 1 100
 @param int Z 18 1 100
 @param float radius 0.7 0 2
+@param float steps 1000 1 10000
+@param float z_step 0.2 0 1
 @param float color 0 0 1
 
 minsize 0.0015
@@ -36,17 +38,17 @@ rule START{
 }
 
 rule RING * ZPATH : YPATH : XPATH {
-  ALINETO{z 0.2 s 0.1}
+  ALINETO{z $z_step}
 }
 
 rule ZPATH {
-  1000/1000*[rz $Z] FRAME{}
+  $steps/$steps*[rz $Z] FRAME{}
 }
 
 rule YPATH {
-  1000/1000*[ry $Y] FRAME{}
+  $steps/$steps*[ry $Y] FRAME{}
 }
 
 rule XPATH {
-  1000/1000*[rx $X] FRAME{}
+  $steps/$steps*[rx $X] FRAME{}
 }
