@@ -1,5 +1,5 @@
-@preset p.5.16.18 { X: 5, Y: 16, Z: 18 }
-@preset p.5.85.1 { X: 5, Y: 85, Z: 1 }
+@preset p.5.16.18 { X: 5, Y: 16, Z: 18, steps: 2000 }
+@preset p.5.85.1 { X: 5, Y: 85, Z: 1, steps: 2000 }
 @preset p.63.33.20 { X: 63, Y: 33, Z: 20, steps: 4000 }
 @preset p.56.9.75 { X: 56, Y: 9, Z: 75, steps: 4000 }
 @param int X  5 1 100
