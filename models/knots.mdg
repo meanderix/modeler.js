@@ -1,11 +1,13 @@
 @preset p.5.16.18 { X: 5, Y: 16, Z: 18 }
 @preset p.5.85.1 { X: 5, Y: 85, Z: 1 }
+@preset p.63.33.20 { X: 63, Y: 33, Z: 20 }
+@preset p.56.9.75 { X: 56, Y: 9, Z: 75 }
 @param int X  5 1 100
 @param int Y 16 1 100
 @param int Z 18 1 100
-@param float radius 0.3 0 2
+@param float radius 0.5 0 2
 @param float step_size 1 0 1
-@param float steps 1000 1 10000
+@param float steps 2000 1 10000
 @param float color 0 0 1
 
 minsize 0.0015
@@ -40,14 +42,14 @@ rule RING * ZPATH : YPATH : XPATH {
   ALINETO{z $step_size}
 }
 
-rule ZPATH {
-  $steps/$steps*[rz $Z] FRAME{}
+rule XPATH {
+  $steps/$steps*[rx $X] FRAME{}
 }
 
 rule YPATH {
   $steps/$steps*[ry $Y] FRAME{}
 }
 
-rule XPATH {
-  $steps/$steps*[rx $X] FRAME{}
+rule ZPATH {
+  $steps/$steps*[rz $Z] FRAME{}
 }
