@@ -43,7 +43,7 @@ rule linerule {
 }
 
 rule observer {
-  FRAME{x -10 -10 ry -12 rx -12 z -150}
+  FRAME{x 0 -10 -150}
 }
 
 rule car : carpath {
