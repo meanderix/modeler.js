@@ -43,7 +43,7 @@ rule linerule {
 }
 
 rule observer {
-  FRAME{x -10 -10 ry -12 rx -12 z -100}
+  FRAME{x -10 -10 ry -12 rx -12 z -150}
 }
 
 rule car : carpath {
@@ -82,13 +82,13 @@ rule tracks {
   car{R 1 B 0.7 }
 @ENDIF
 	rails{} \
-  20 * {z 1} rails{} \
-  12 * {up 5 z 1 fps -1.5} rails{} \
-  34 * {z 1} rails{} \
-  12 * {down 5 z 1} rails{} \
-  32 * {left 5 z 1} rails{} \
+  34 * {z 1 right 1.4} rails{} \
+  12 * {up 7.1 z 1 fps -1.5} rails{} \
+  30 * {z 1} rails{} \
+  12 * {down 7 z 1} rails{} \
+  34 * {left 5.2 z 1} rails{} \
   12 * {down 6 z 1 fps 2} rails{} \
-  32* {z 1 fps 3} rails{} \
+  34 * {z 1 fps 3} rails{} \
   124 * {up 5 rz 0.5 z 1 B -0.003 G 0.003} rails{} \
   30 * {rz -6 z 1} rails {} \
   134 * {right 2 z 1} rails {} \
@@ -101,6 +101,5 @@ rule tracks {
   12 * {up 4 z 1 } rails{} \
   24 * {z 1} rails{} \
   32 * {right 3.01 z 1} rails{} \
-  68 * {rz 0.7 left 3.6  z 1 fps -1 R -0.004 B 0.008} rails{} \
-  5 * {rz 2 y -0.2 z 1} rails{}
+  76 * {rz 0.7 left 3.6  z 1 fps -1 R -0.004 B 0.008} rails{}
 }
