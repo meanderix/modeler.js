@@ -51,7 +51,7 @@ isosurface SPHERE {
 
 rule CAMERA {
   FRAME{rx -90 z -3.5}
-  CAMERARULE {}
+  CAMERA{}
 }
 rule LINE {
   8/8*[rz 360] VERTEX{x $lattice_size G 0.3 R 0.3 B 0.3}
