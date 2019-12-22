@@ -1,12 +1,12 @@
 @preset p.5.16.18 { X: 5, Y: 16, Z: 18 }
 @preset p.5.85.1 { X: 5, Y: 85, Z: 1 }
-@preset p.63.33.20 { X: 63, Y: 33, Z: 20 }
-@preset p.56.9.75 { X: 56, Y: 9, Z: 75 }
+@preset p.63.33.20 { X: 63, Y: 33, Z: 20, steps: 4000 }
+@preset p.56.9.75 { X: 56, Y: 9, Z: 75, steps: 4000 }
 @param int X  5 1 100
 @param int Y 16 1 100
 @param int Z 18 1 100
-@param float radius 0.5 0 2
-@param float step_size 1 0 1
+@param float radius 0.4 0 2
+@param float step_size 1 0 10
 @param float steps 2000 1 10000
 @param float color 0 0 1
 
