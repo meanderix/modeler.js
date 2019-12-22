@@ -5,6 +5,7 @@
 startshape tracks
 linerule linerule
 duration 60
+wrapmode repeat
 
 @IFDEF FirstPerson
 camerarule carpath
