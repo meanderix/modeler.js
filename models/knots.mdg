@@ -1,4 +1,4 @@
-@preset 5_16_18 { X: 5, Y: 16, Z: 18 }
+@preset p_5_16_18 { X: 5, Y: 16, Z: 18 }
 @param int X  5 1 100
 @param int Y 16 1 100
 @param int Z 18 1 100
@@ -37,7 +37,7 @@ rule ring * zpath : ypath : xpath {
 }
 
 rule zpath {
-  1000/1000*[rz $X] FRAME{}
+  1000/1000*[rz $Z] FRAME{}
 }
 
 rule ypath {
@@ -45,5 +45,5 @@ rule ypath {
 }
 
 rule xpath {
-  1000/1000*[rx $Z] FRAME{}
+  1000/1000*[rx $X] FRAME{}
 }
