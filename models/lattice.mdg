@@ -43,7 +43,6 @@ evalmode bfs
 wrapmode none
 center
 
-
 isosurface SPHERE {
   xyz -1 1 6
   function {1.0 - (x*x+y*y+z*z)}

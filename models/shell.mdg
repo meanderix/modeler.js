@@ -1,8 +1,7 @@
-
 startshape START
 minsize 0.0015
 duration 60
-background 0.5 0.7 0.4 1
+background 0.2 0.3 0.2 1
 center
 
 linerule LINERULE
@@ -18,11 +17,11 @@ rule CAMERARULE {
 }
 
 rule START{
-  shell{y 5 R 0.4 G 0.1 rx -40}
+  shell{y 5 R 0.4 G 0.1 B 0.2 rx -40}
 }
 
 rule shell:transform {
-  3000*{ry 3 s 0.998 z 0.5 y -0.03 R 0.0005 G 0.002 B 0.001} LINETO{}
+  3000*{ry 3 s 0.998 z 0.4 y -0.03 R 0.0002 G 0.0003 B -0.001} LINETO{}
 }
 
 rule transform{

@@ -3,7 +3,7 @@ uniform specColor 1 1 1
 uniform phongPower 40
 
 startshape START
-minsize 0.05
+minsize 0.02
 
 linerule LINERULE
 camerarule CAMERARULE

@@ -24,7 +24,6 @@ startshape start
 minsize 0.01
 camerarule CAMERARULE
 duration 60
-updatedelay 5
 wrapmode none
 
 rule CAMERARULE {
@@ -46,7 +45,7 @@ rule plane{
   next{z -1.618033988 y -1 }
 }
 rule next{
-  origin{H -0.2 s 0.5}
+  origin{H -0.15 s 0.5}
 }
 rule transform {
   FRAME{}
