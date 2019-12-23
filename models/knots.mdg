@@ -8,9 +8,9 @@
 @preset p.64.16.73 { X: 64, Y: 16, Z: 73, steps: 4000 }
 @preset p.64.32.91 { X: 64, Y: 32, Z: 91, steps: 4000 }
 @preset p.59.15.84 { X: 59, Y: 15, Z: 84, steps: 4000 }
-@param int X  5 1 100
-@param int Y 16 1 100
-@param int Z 18 1 100
+@param int X 16 1 100
+@param int Y 80 1 100
+@param int Z 73 1 100
 @param float radius 0.4 0 2
 @param float step_size 1 0 10
 @param float steps 4000 1 10000
