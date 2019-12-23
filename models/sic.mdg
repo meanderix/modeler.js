@@ -5,6 +5,7 @@ uniform phongPower 40
 startshape START
 minsize 0.015
 duration 120
+wrapmode repeat
 
 center
 
