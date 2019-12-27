@@ -7,11 +7,15 @@ Copyright (C) 2019 Mattias Andersson. All rights reserved.
 @preset helium_4 { protons: 2, neutrons: 2 }
 @preset oxygen_16 { protons: 8, neutrons: 8 }
 @preset calcium_40 { protons: 20, neutrons: 20 }
+@preset calcium_48 { protons: 20, neutrons: 28 }
 @preset nickel_56 { protons: 28, neutrons: 28 }
 @preset zirconium_80 { protons: 40, neutrons: 40 }
+@preset zirconium_96 { protons: 40, neutrons: 56 }
 @preset tin_100 { protons: 50, neutrons: 50 }
+@preset tin_120 { protons: 50, neutrons: 70 }
 @preset ytterbium_140 { protons: 70, neutrons: 70 }
 @preset lead_164 { protons: 82, neutrons: 82 }
+@preset lead_208 { protons: 82, neutrons: 126 }
 @preset copernicium_224 { protons: 112, neutrons: 112 }
 @preset unbihexium_252 { protons: 126, neutrons: 126 }
 
@@ -126,7 +130,7 @@ rule PARTICLE {
 rule RECURSE_Z 0 {
   RECURSE{
 @IFDEF principal
-    H 0.15
+    H 0.72
 @ENDIF
   }
 }
@@ -134,16 +138,23 @@ rule RECURSE_Z 0 {
 rule RECURSE_XY 14 {
   TETRAHEDRA{
 @IFDEF principal
-    H 0.15
+    H 0.72
 @ENDIF
 @IFDEF total_spin
-    H 0.15
+    H 0.72
 @ENDIF
   }
 }
 
 rule RECURSE 13 {
-  RECURSE_XY{}
+  RECURSE_XY{
+@IFDEF principal
+    H -0.72
+@ENDIF
+@IFDEF total_spin
+    H -0.72
+@ENDIF
+  }
   RECURSE_Z{z -2 fz}
   RECURSE_Z{z 2 fz}
 }
@@ -168,12 +179,12 @@ rule TETRAHEDRA 0 {
 
   RECURSE_XY{x 2 fx
 @IFDEF magnetic_spin
-    H 0.15
+    H 0.72
 @ENDIF
   }
   RECURSE_XY{x -2 fx
 @IFDEF magnetic_spin
-    H 0.15
+    H 0.72
 @ENDIF
   }
   RECURSE_XY{y 2 fy}
