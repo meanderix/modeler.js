@@ -18,9 +18,10 @@ Copyright (C) 2019 Mattias Andersson. All rights reserved.
 @preset lead_208 { protons: 82, neutrons: 126 }
 @preset copernicium_224 { protons: 112, neutrons: 112 }
 @preset unbihexium_252 { protons: 126, neutrons: 126 }
+@preset unhexoctium_336 { protons: 168, neutrons: 168 }
 
-@param int protons 2 0 150
-@param int neutrons 2 0 150
+@param int protons 2 0 168
+@param int neutrons 2 0 168
 @param float particle_size 0.5 0 1
 
 @param enum colouring isospin spin total_spin principal magnetic_spin
