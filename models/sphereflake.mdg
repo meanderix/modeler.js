@@ -35,7 +35,7 @@ rule start : transform {
   origin{}
 }
 rule origin {
-  SPHERE{B 1.5 G 0.75}
+  SPHERE{R 1.5 B 0.75}
   3*{r 90 0 90}plane{s 0.6666}
 }
 rule plane{
@@ -45,7 +45,7 @@ rule plane{
   next{z -1.618033988 y -1 }
 }
 rule next{
-  origin{H -0.15 s 0.5}
+  origin{H -0.1 s 0.5}
 }
 rule transform {
   FRAME{}
